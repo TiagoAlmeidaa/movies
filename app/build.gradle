@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -37,8 +38,14 @@ dependencies {
 
     implementation Android.material
 
+    implementation Square.retrofit
+    implementation Square.retrofitGsonAdapter
+
     implementation AndroidX.coreKtx
     implementation AndroidX.appCompat
+
+    implementation Dagger.core
+    kapt Dagger.compiler
 
     testImplementation Testing.jUnit
 

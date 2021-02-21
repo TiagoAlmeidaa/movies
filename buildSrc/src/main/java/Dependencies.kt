@@ -6,6 +6,8 @@ object Versions {
     const val appCompat = "1.2.0"
     const val jUnitExt = "1.1.2"
     const val espresso = "3.3.0"
+    const val dagger = "2.29.1"
+    const val retrofit = "2.9.0"
     const val jUnit = "4.13.2"
     const val dependenciesChecker = "0.36.0"
 }
@@ -25,6 +27,16 @@ object AndroidX {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val jUnitExt = "androidx.test.ext:junit:${Versions.jUnitExt}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+}
+
+object Dagger {
+    const val core = "com.google.dagger:dagger:${Versions.dagger}"
+    const val compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+}
+
+object Square {
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofitGsonAdapter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
 }
 
 object Testing {
