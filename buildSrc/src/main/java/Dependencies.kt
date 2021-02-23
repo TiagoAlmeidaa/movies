@@ -8,6 +8,7 @@ object Versions {
     const val espresso = "3.3.0"
     const val dagger = "2.29.1"
     const val retrofit = "2.9.0"
+    const val rxJava3 = "3.0.0"
     const val jUnit = "4.13.2"
     const val dependenciesChecker = "0.36.0"
 }
@@ -36,7 +37,14 @@ object Dagger {
 
 object Square {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val retrofitGsonAdapter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    const val retrofitScalarsConverter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
+    const val retrofitRxJava3Adapter = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
+}
+
+object Rx {
+    const val java3 = "io.reactivex.rxjava3:rxjava:${Versions.rxJava3}"
+    const val kotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rxJava3}"
+    const val android = "io.reactivex.rxjava3:rxandroid:${Versions.rxJava3}"
 }
 
 object Testing {

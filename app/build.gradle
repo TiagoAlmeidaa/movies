@@ -34,15 +34,19 @@ android {
 }
 
 dependencies {
+    api(project(":network"))
+
     implementation JetBrains.kotlinStdLib
 
     implementation Android.material
 
     implementation Square.retrofit
-    implementation Square.retrofitGsonAdapter
 
     implementation AndroidX.coreKtx
     implementation AndroidX.appCompat
+
+    implementation Rx.java3
+    implementation Rx.kotlin
 
     implementation Dagger.core
     kapt Dagger.compiler
