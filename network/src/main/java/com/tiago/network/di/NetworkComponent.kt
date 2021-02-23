@@ -1,13 +1,15 @@
 package com.tiago.network.di
 
-import com.tiago.network.repository.MoviesRepository
-import dagger.Component
+import dagger.Subcomponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    modules = [NetworkModule::class]
-)
+@Subcomponent(modules = [NetworkModule::class])
 interface NetworkComponent {
-    fun getMoviesRepository(): MoviesRepository
+
+    @Subcomponent.Builder
+    interface Builder {
+        fun requestModule(module: NetworkModule): Builder
+        fun build(): NetworkComponent
+    }
 }

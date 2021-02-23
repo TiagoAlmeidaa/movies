@@ -9,26 +9,26 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    @Inject
-    lateinit var repository: MoviesRepository
+//    @Inject
+//    lateinit var repository: MoviesRepository
 
-    val compositeDisposable = CompositeDisposable()
+//    val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (applicationContext as MoviesApplication).appComponent.inject(this)
+//        (applicationContext as MoviesApplication).appComponent.inject(this)
 
-        val disposable = repository.get().subscribe(
-            { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() },
-            { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() }
-        )
+//        val disposable = repository.get().subscribe(
+//            { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() },
+//            { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() }
+//        )
 
-        compositeDisposable.add(disposable)
+//        compositeDisposable.add(disposable)
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
+//        compositeDisposable.clear()
         super.onDestroy()
     }
 }
