@@ -1,3 +1,2 @@
-include ':network'
-include ':app'
+include ':feature_popular', ':network', ':app'
 rootProject.name = "movies"
