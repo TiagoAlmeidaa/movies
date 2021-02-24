@@ -36,21 +36,16 @@ android {
 }
 
 dependencies {
-    implementation(project(Module.NETWORK))
+    api(project(Module.NETWORK))
 
-    implementation(JetBrains.kotlinStdLib)
+    api(Android.material)
 
-    implementation(Android.material)
-
-    implementation(Square.retrofit)
-
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
+    api(AndroidX.coreKtx)
+    api(AndroidX.appCompat)
 
     implementation(Rx.java3)
     implementation(Rx.kotlin)
 
-    implementation(Dagger.core)
     kapt(Dagger.compiler)
 
     testImplementation(Testing.jUnit)
