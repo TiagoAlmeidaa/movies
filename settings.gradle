@@ -1,2 +1,0 @@
-include ':feature_popular', ':network', ':app'
-rootProject.name = "movies"
