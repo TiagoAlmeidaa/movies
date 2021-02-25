@@ -1,3 +1,4 @@
+include(":navigation")
 pluginManagement {
     repositories {
         gradlePluginPortal()
