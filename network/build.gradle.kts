@@ -33,15 +33,15 @@ android {
 }
 
 dependencies {
-    api(JetBrains.kotlinStdLib)
+    implementation(JetBrains.kotlinStdLib)
 
-    api(Square.retrofit)
+    implementation(Square.retrofit)
     implementation(Square.retrofitScalarsConverter)
     implementation(Square.retrofitRxJava3Adapter)
 
     implementation(Rx.android)
 
-    api(Dagger.core)
+    implementation(Dagger.core)
     kapt(Dagger.compiler)
 
     testImplementation(Testing.jUnit)

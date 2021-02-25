@@ -21,6 +21,7 @@ object AndroidConfig {
 object Module {
     const val APP = ":app"
     const val NETWORK = ":network"
+    const val NAVIGATION = ":navigation"
 }
 
 object BuildType {

@@ -1,34 +1,23 @@
 package com.tiago.movies
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.tiago.network.repository.MoviesRepository
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import javax.inject.Inject
+import androidx.navigation.findNavController
+import com.tiago.navigation.MoviesNavigation
+import com.tiago.navigation.MoviesNavigator
+import com.tiago.navigation.Navigator
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
 
-//    @Inject
-//    lateinit var repository: MoviesRepository
-
-//    val compositeDisposable = CompositeDisposable()
+    private val navigator: MoviesNavigator = MoviesNavigator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        (applicationContext as MoviesApplication).appComponent.inject(this)
-
-//        val disposable = repository.get().subscribe(
-//            { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() },
-//            { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() }
-//        )
-
-//        compositeDisposable.add(disposable)
+        navigator.navController = findNavController(R.id.fragment_container)
     }
 
-    override fun onDestroy() {
-//        compositeDisposable.clear()
-        super.onDestroy()
+    override fun navigateTo(navigation: MoviesNavigation) {
+        navigator.navigate(navigation)
     }
+
 }

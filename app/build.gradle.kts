@@ -36,18 +36,23 @@ android {
 }
 
 dependencies {
-    api(project(Module.NETWORK))
+    implementation(project(Module.NETWORK))
+    implementation(project(Module.NAVIGATION))
 
-    api(Android.material)
+    implementation(JetBrains.kotlinStdLib)
 
-    api(AndroidX.coreKtx)
-    api(AndroidX.appCompat)
-    api(AndroidX.navigation)
-    api(AndroidX.navigationKtx)
+    implementation(Android.material)
+
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.appCompat)
+
+    implementation(AndroidX.navigation)
+    implementation(AndroidX.navigationKtx)
 
     implementation(Rx.java3)
     implementation(Rx.kotlin)
 
+    implementation(Dagger.core)
     kapt(Dagger.compiler)
 
     testImplementation(Testing.jUnit)

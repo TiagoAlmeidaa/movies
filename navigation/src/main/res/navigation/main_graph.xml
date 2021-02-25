@@ -6,4 +6,8 @@
 
     <include app:graph="@navigation/popular_graph" />
 
+    <action
+        android:id="@+id/action_to_popular"
+        app:destination="@id/popular_graph" />
+
 </navigation>

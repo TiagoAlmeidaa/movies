@@ -1,7 +1,6 @@
 plugins {
     id(Plugin.ANDROID_LIBRARY)
     id(Plugin.KOTLIN_ANDROID)
-    id(Plugin.KOTLIN_KAPT)
 }
 
 android {
@@ -33,20 +32,11 @@ android {
 }
 
 dependencies {
-    implementation(project(Module.APP))
-    implementation(project(Module.NETWORK))
-    implementation(project(Module.NAVIGATION))
-
     implementation(JetBrains.kotlinStdLib)
-
-    implementation(Android.material)
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
 
     implementation(AndroidX.navigation)
     implementation(AndroidX.navigationKtx)
-
-    implementation(Dagger.core)
-    kapt(Dagger.compiler)
 }
