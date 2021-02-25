@@ -4,6 +4,7 @@ object Versions {
     const val kotlin = "1.4.30"
     const val coreKtx = "1.3.2"
     const val appCompat = "1.2.0"
+    const val navigation = "2.3.3"
     const val jUnitExt = "1.1.2"
     const val espresso = "3.3.0"
     const val dagger = "2.29.1"
@@ -26,6 +27,8 @@ object JetBrains {
 object AndroidX {
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+    const val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val jUnitExt = "androidx.test.ext:junit:${Versions.jUnitExt}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
 }

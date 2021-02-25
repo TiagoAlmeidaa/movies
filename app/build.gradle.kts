@@ -42,6 +42,8 @@ dependencies {
 
     api(AndroidX.coreKtx)
     api(AndroidX.appCompat)
+    api(AndroidX.navigation)
+    api(AndroidX.navigationKtx)
 
     implementation(Rx.java3)
     implementation(Rx.kotlin)

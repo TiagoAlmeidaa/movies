@@ -1,4 +1,4 @@
-package com.tiago.movies.di
+package com.tiago.network.di
 
 import javax.inject.Scope
 
