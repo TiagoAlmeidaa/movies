@@ -42,7 +42,7 @@ object Dagger {
 
 object Square {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    const val retrofitScalarsConverter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
+    const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val retrofitRxJava3Adapter = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
 }
 

@@ -68,7 +68,9 @@ class PopularFragment : Fragment() {
     private fun getStateObserver() = Observer<PopularState> { state ->
         when (state) {
             is PopularState.OnMoviesReceived -> {
-                Log.d("Resposta", state.json)
+                if (state.movies.isNotEmpty()) {
+
+                }
             }
             is PopularState.OnMoviesFailed -> {
                 Log.d("Resposta", state.exception.message?: "unknown")

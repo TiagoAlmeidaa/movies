@@ -25,9 +25,9 @@ class PopularViewModel(
 
     fun get() {
         val disposable = repository
-            .get()
+            .getPopularMovies()
             .subscribe(
-                { json -> _state.postValue(PopularState.OnMoviesReceived(json)) },
+                { movies -> _state.postValue(PopularState.OnMoviesReceived(movies)) },
                 { exception -> _state.postValue(PopularState.OnMoviesFailed(exception)) }
             )
 

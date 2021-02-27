@@ -1,4 +1,3 @@
-include(":common")
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -9,4 +8,4 @@ pluginManagement {
 rootProject.buildFileName = "build.gradle.kts"
 rootProject.name = "movies"
 
-include("feature_popular", "network", "app", "navigation")
+include("feature_popular", "network", "app", "navigation", "common", "model")

@@ -33,10 +33,12 @@ android {
 }
 
 dependencies {
+    api(project(Module.MODEL))
+
     implementation(JetBrains.kotlinStdLib)
 
     implementation(Square.retrofit)
-    implementation(Square.retrofitScalarsConverter)
+    implementation(Square.retrofitGsonConverter)
     implementation(Square.retrofitRxJava3Adapter)
 
     implementation(Rx.java3)

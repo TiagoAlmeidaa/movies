@@ -1,6 +1,7 @@
 //import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 buildscript {
+    val kotlin_version by extra("1.4.31")
     repositories {
         google()
         jcenter()
@@ -10,6 +11,7 @@ buildscript {
         classpath(JetBrains.kotlinGradlePlugin)
         classpath(AndroidX.safeArgs)
         classpath(Util.dependenciesChecker)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 
