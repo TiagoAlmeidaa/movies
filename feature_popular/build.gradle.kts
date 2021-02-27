@@ -55,4 +55,6 @@ dependencies {
 
     implementation(Dagger.core)
     kapt(Dagger.compiler)
+
+    implementation(BumpTech.glide)
 }

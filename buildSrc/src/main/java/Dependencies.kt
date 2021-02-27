@@ -11,6 +11,7 @@ object Versions {
     const val dagger = "2.29.1"
     const val retrofit = "2.9.0"
     const val rxJava3 = "3.0.0"
+    const val glide = "4.12.0"
     const val jUnit = "4.13.2"
     const val dependenciesChecker = "0.36.0"
 }
@@ -50,6 +51,10 @@ object Rx {
     const val java3 = "io.reactivex.rxjava3:rxjava:${Versions.rxJava3}"
     const val kotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rxJava3}"
     const val android = "io.reactivex.rxjava3:rxandroid:${Versions.rxJava3}"
+}
+
+object BumpTech {
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 }
 
 object Testing {

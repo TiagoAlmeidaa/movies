@@ -1,25 +1,21 @@
 package com.tiago.popular.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
-import com.tiago.common.MoviesApplication
-import com.tiago.popular.R
-import com.tiago.popular.di.DaggerPopularComponent
-import com.tiago.popular.model.PopularState
-import com.tiago.popular.viewmodel.PopularViewModel
-import com.tiago.popular.viewmodel.PopularViewModelFactory
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
 import com.tiago.popular.databinding.FragmentPopularBinding
 import com.tiago.popular.di.PopularInjector
+import com.tiago.popular.model.PopularState
+import com.tiago.popular.ui.adapter.MovieAdapter
+import com.tiago.popular.viewmodel.PopularViewModel
+import com.tiago.popular.viewmodel.PopularViewModelFactory
 import javax.inject.Inject
 
 class PopularFragment : Fragment() {
@@ -52,28 +48,24 @@ class PopularFragment : Fragment() {
 
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
-    private fun setupObservers() = with(viewModel){
+    private fun setupObservers() = with(viewModel) {
         state.observe(viewLifecycleOwner, getStateObserver())
     }
 
     private fun loadData() {
-        if (viewModel.hasMovies()) {
-            Toast.makeText(requireContext(), "Já tem filmes", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Consultando", Toast.LENGTH_SHORT).show()
-            viewModel.get()
+        if (!viewModel.hasMovies()) {
+            viewModel.getPopularMovies()
         }
     }
 
     private fun getStateObserver() = Observer<PopularState> { state ->
         when (state) {
             is PopularState.OnMoviesReceived -> {
-                if (state.movies.isNotEmpty()) {
-
-                }
+                binding.popularList.adapter = MovieAdapter(state.movies)
+                binding.popularList.layoutManager = LinearLayoutManager(requireContext())
             }
             is PopularState.OnMoviesFailed -> {
-                Log.d("Resposta", state.exception.message?: "unknown")
+                Log.d("Resposta", state.exception.message ?: "unknown")
             }
         }
     }

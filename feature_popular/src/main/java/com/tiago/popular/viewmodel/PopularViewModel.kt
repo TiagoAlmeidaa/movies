@@ -23,7 +23,7 @@ class PopularViewModel(
         disposables.clear()
     }
 
-    fun get() {
+    fun getPopularMovies() {
         val disposable = repository
             .getPopularMovies()
             .subscribe(
