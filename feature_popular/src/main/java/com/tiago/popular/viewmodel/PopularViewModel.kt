@@ -24,6 +24,8 @@ class PopularViewModel(
     }
 
     fun getPopularMovies() {
+        _state.postValue(PopularState.OnLoading)
+
         val disposable = repository
             .getPopularMovies()
             .subscribe(

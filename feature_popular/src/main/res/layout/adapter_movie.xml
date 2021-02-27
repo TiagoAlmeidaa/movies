@@ -6,11 +6,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="5dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="@dimen/popular_adapter_movie_card_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,19 +15,20 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image_view_poster"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/popular_adapter_movie_image_height"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toTopOf="@id/text_view_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/icon_poster_place_holder" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_view_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="16sp"
+                android:layout_margin="@dimen/popular_adapter_movie_title_margin"
+                android:textSize="@dimen/popular_adapter_movie_title_text_size"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
