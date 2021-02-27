@@ -1,4 +1,4 @@
-package com.tiago.common
+package com.tiago.common.di
 
 import javax.inject.Scope
 
