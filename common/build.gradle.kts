@@ -1,17 +1,13 @@
 plugins {
-    id(Plugin.ANDROID_APPLICATION)
+    id(Plugin.ANDROID_LIBRARY)
     id(Plugin.KOTLIN_ANDROID)
     id(Plugin.KOTLIN_KAPT)
-    id(Plugin.SAFE_ARGS)
 }
 
 android {
     compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
-    buildToolsVersion(AndroidConfig.BUILD_TOOLS_VERSION)
 
     defaultConfig {
-        applicationId(AndroidConfig.APPLICATION_ID)
-
         minSdkVersion(AndroidConfig.MIN_SDK_VERSION)
         targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
 
@@ -34,35 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
-    implementation(project(Module.COMMON))
-    implementation(project(Module.NETWORK))
-    implementation(project(Module.NAVIGATION))
-    implementation(project(Module.FEATURE_POPULAR))
+    api(project(Module.NETWORK))
+    api(project(Module.NAVIGATION))
 
     implementation(JetBrains.kotlinStdLib)
-
-    implementation(Android.material)
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
 
-    implementation(AndroidX.navigation)
-    implementation(AndroidX.navigationKtx)
-
-    implementation(Rx.java3)
-    implementation(Rx.kotlin)
-
     implementation(Dagger.core)
     kapt(Dagger.compiler)
-
-    testImplementation(Testing.jUnit)
-
-    androidTestImplementation(AndroidX.jUnitExt)
-    androidTestImplementation(AndroidX.espresso)
 }

@@ -3,6 +3,7 @@ object Plugin {
     const val ANDROID_LIBRARY = "com.android.library"
     const val KOTLIN_ANDROID = "kotlin-android"
     const val KOTLIN_KAPT = "kotlin-kapt"
+    const val SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
 }
 
 object AndroidConfig {
@@ -19,8 +20,9 @@ object AndroidConfig {
 }
 
 object Module {
-    const val APP = ":app"
+    const val COMMON = ":common"
     const val NETWORK = ":network"
+    const val FEATURE_POPULAR = ":feature_popular"
     const val NAVIGATION = ":navigation"
 }
 

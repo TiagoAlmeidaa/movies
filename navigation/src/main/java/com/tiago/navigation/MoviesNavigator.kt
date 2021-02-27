@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 class MoviesNavigator {
     lateinit var navController: NavController
 
-    fun navigate(navigation: MoviesNavigation) = when(navigation) {
-        MoviesNavigation.Popular -> navController.navigate()
+    fun navigate(navigation: MoviesNavigation) /*= when(navigation)*/ {
+        /*MoviesNavigation.Popular -> navController.navigate()*/
     }
 }

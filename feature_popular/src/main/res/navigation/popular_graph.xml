@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/popularFragment"
-        android:name="com.tiago.popular.view.PopularFragment"
+        android:name="com.tiago.popular.ui.PopularFragment"
         android:label="PopularFragment" />
 
 </navigation>

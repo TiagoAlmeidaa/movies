@@ -2,6 +2,7 @@ plugins {
     id(Plugin.ANDROID_LIBRARY)
     id(Plugin.KOTLIN_ANDROID)
     id(Plugin.KOTLIN_KAPT)
+    id(Plugin.SAFE_ARGS)
 }
 
 android {
@@ -30,12 +31,13 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
-    implementation(project(Module.APP))
-    implementation(project(Module.NETWORK))
-    implementation(project(Module.NAVIGATION))
+    implementation(project(Module.COMMON))
 
     implementation(JetBrains.kotlinStdLib)
 
@@ -43,6 +45,10 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
+
+    implementation(Rx.java3)
+    implementation(Rx.kotlin)
+    implementation(Rx.android)
 
     implementation(AndroidX.navigation)
     implementation(AndroidX.navigationKtx)

@@ -39,6 +39,8 @@ dependencies {
     implementation(Square.retrofitScalarsConverter)
     implementation(Square.retrofitRxJava3Adapter)
 
+    implementation(Rx.java3)
+    implementation(Rx.kotlin)
     implementation(Rx.android)
 
     implementation(Dagger.core)

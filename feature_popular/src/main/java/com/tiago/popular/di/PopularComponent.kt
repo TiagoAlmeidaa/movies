@@ -1,15 +1,12 @@
 package com.tiago.popular.di
 
-import com.tiago.network.di.FragmentScope
+import com.tiago.common.di.FragmentScope
 import com.tiago.network.di.NetworkComponent
+import com.tiago.popular.ui.PopularFragment
 import dagger.Component
-import dagger.Subcomponent
-import javax.inject.Singleton
 
 @FragmentScope
-@Component(
-    dependencies = [NetworkComponent::class],
-    modules = [PopularModule::class]
-)
+@Component(dependencies = [NetworkComponent::class])
 interface PopularComponent {
+    fun inject(fragment: PopularFragment)
 }

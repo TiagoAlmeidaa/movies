@@ -2,6 +2,7 @@ object Versions {
     const val gradle = "4.1.2"
     const val material = "1.3.0"
     const val kotlin = "1.4.30"
+    const val safeArgs = "2.3.2"
     const val coreKtx = "1.3.2"
     const val appCompat = "1.2.0"
     const val navigation = "2.3.3"
@@ -25,6 +26,7 @@ object JetBrains {
 }
 
 object AndroidX {
+    const val safeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.safeArgs}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
