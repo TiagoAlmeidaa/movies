@@ -1,7 +1,6 @@
 plugins {
     id(Plugin.ANDROID_APPLICATION)
     id(Plugin.KOTLIN_ANDROID)
-    id(Plugin.KOTLIN_KAPT)
     id(Plugin.SAFE_ARGS)
 }
 
@@ -40,29 +39,5 @@ android {
 }
 
 dependencies {
-    implementation(project(Module.COMMON))
-    implementation(project(Module.NETWORK))
-    implementation(project(Module.NAVIGATION))
     implementation(project(Module.FEATURE_POPULAR))
-
-    implementation(JetBrains.kotlinStdLib)
-
-    implementation(Android.material)
-
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
-
-    implementation(AndroidX.navigation)
-    implementation(AndroidX.navigationKtx)
-
-    implementation(Rx.java3)
-    implementation(Rx.kotlin)
-
-    implementation(Dagger.core)
-    kapt(Dagger.compiler)
-
-    testImplementation(Testing.jUnit)
-
-    androidTestImplementation(AndroidX.jUnitExt)
-    androidTestImplementation(AndroidX.espresso)
 }

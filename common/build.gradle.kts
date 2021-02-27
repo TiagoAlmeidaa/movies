@@ -30,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -40,6 +43,9 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
+
+    implementation(AndroidX.navigation)
+    implementation(AndroidX.navigationKtx)
 
     implementation(Dagger.core)
     kapt(Dagger.compiler)
