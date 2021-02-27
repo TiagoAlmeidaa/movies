@@ -11,8 +11,6 @@ class MovieViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: Movie) = with(binding) {
-        textViewTitle.text = movie.originalTitle
-
         val url = "https://image.tmdb.org/t/p/w500${movie.posterPath}"
 
         Glide
