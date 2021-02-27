@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Module.COMMON))
+    api(project(Module.COMMON))
 
     implementation(JetBrains.kotlinStdLib)
 
