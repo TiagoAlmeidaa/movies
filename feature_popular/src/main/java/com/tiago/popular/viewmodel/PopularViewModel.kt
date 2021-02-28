@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.tiago.model.Movie
 import com.tiago.network.repository.MoviesRepository
 import com.tiago.popular.model.PopularState
 import com.tiago.popular.model.RecyclerViewState
@@ -19,26 +20,38 @@ class PopularViewModel(
     private val _state = MutableLiveData<PopularState>()
     val state = _state as LiveData<PopularState>
 
-    private val _mode =
-        MutableLiveData<RecyclerViewState>().apply { value = RecyclerViewState.ListMode() }
+    private val _mode = MutableLiveData<RecyclerViewState>().apply { value = RecyclerViewState.GridMode() }
     val mode = _mode as LiveData<RecyclerViewState>
+
+    var currentPage = 1
+        private set
 
     override fun onCleared() {
         super.onCleared()
         disposables.clear()
     }
 
-    fun getPopularMovies() {
-        _state.postValue(PopularState.OnLoading)
+    fun getPopularMovies(addPage: Boolean = false) {
+        if (addPage) currentPage++
 
         val disposable = repository
-            .getPopularMovies()
+            .getPopularMovies(currentPage)
             .subscribe(
-                { movies -> _state.postValue(PopularState.OnMoviesReceived(movies)) },
-                { exception -> _state.postValue(PopularState.OnMoviesFailed(exception)) }
+                { handleReceivedMovies(it) },
+                { handleException(addPage, it) }
             )
 
         disposables.add(disposable)
+    }
+
+    fun handleReceivedMovies(movies: List<Movie>) {
+        _state.postValue(PopularState.OnMoviesReceived(movies))
+    }
+
+    fun handleException(addPage: Boolean, exception: Throwable) {
+        if (addPage) currentPage--
+
+        _state.postValue(PopularState.OnMoviesFailed(exception))
     }
 
     fun changeRecyclerViewMode() = when (_mode.value) {

@@ -1,11 +1,11 @@
-package com.tiago.popular.ui.adapter
+package com.tiago.common.util.decoration
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.tiago.common.extension.dp
 
-class MovieListItemDecoration : RecyclerView.ItemDecoration() {
+class ListItemDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,

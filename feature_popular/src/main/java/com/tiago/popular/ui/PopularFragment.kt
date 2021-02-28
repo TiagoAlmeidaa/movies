@@ -1,6 +1,7 @@
 package com.tiago.popular.ui
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tiago.common.extension.gone
+import com.tiago.common.extension.onBottomReached
 import com.tiago.common.extension.replaceItemDecoration
 import com.tiago.common.extension.visible
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
@@ -33,10 +35,10 @@ class PopularFragment : Fragment() {
     }
 
     private val binding: FragmentPopularBinding by lazy {
-        FragmentPopularBinding.inflate(layoutInflater).apply {
-            lifecycleOwner = this@PopularFragment
-        }
+        initializeBinding()
     }
+
+    private val movieAdapter = MovieAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,42 +49,49 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         injectDependencies()
-        setupEvents()
-        setupObservers()
-        loadData()
+        initializeUI()
+        initializeEvents()
+        initializeObservers()
+        if (!viewModel.hasMovies())
+            loadData()
     }
 
-    private fun setupEvents() = with(binding) {
-        imageViewMode.setOnClickListener {
-            viewModel.changeRecyclerViewMode()
-        }
+    private fun initializeBinding() = FragmentPopularBinding.inflate(layoutInflater).apply {
+        lifecycleOwner = this@PopularFragment
     }
 
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
-    private fun setupObservers() = with(viewModel) {
+    private fun initializeUI() = with(binding) {
+        popularList.adapter = movieAdapter
+    }
+
+    private fun initializeEvents() = with(binding) {
+        imageViewMode.setOnClickListener {
+            viewModel.changeRecyclerViewMode()
+        }
+        popularList.onBottomReached {
+            loadData(true)
+        }
+    }
+
+    private fun initializeObservers() = with(viewModel) {
         state.observe(viewLifecycleOwner, getStateObserver())
         mode.observe(viewLifecycleOwner, getModeObserver())
     }
 
-    private fun loadData() {
-        if (!viewModel.hasMovies()) {
-            viewModel.getPopularMovies()
-        }
+    private fun loadData(addPage: Boolean = false) {
+        binding.progressBar.visible()
+        Handler().postDelayed({ viewModel.getPopularMovies(addPage) }, 1000)
     }
 
     private fun getStateObserver() = Observer<PopularState> { state ->
         when (state) {
-            is PopularState.OnLoading -> {
-                showLoading()
-            }
-            is PopularState.OnMoviesReceived -> with(binding) {
-                hideLoading()
-                popularList.adapter = MovieAdapter(state.movies)
+            is PopularState.OnMoviesReceived -> {
+                binding.progressBar.gone()
+                movieAdapter.movies = state.movies.toMutableList()
             }
             is PopularState.OnMoviesFailed -> {
-                hideLoading()
-
                 Toast.makeText(requireContext(), state.exception.message ?: "unknown error", Toast.LENGTH_LONG).show()
             }
         }
@@ -105,16 +114,6 @@ class PopularFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun showLoading() = with(binding) {
-        progressBar.visible()
-        popularList.gone()
-    }
-
-    private fun hideLoading() = with(binding) {
-        progressBar.gone()
-        popularList.visible()
     }
 
 }

@@ -8,6 +8,19 @@ fun RecyclerView.replaceItemDecoration(itemDecoration: RecyclerView.ItemDecorati
             removeItemDecorationAt(position)
         }
     }
-
     addItemDecoration(itemDecoration)
 }
+
+fun RecyclerView.onBottomReached(action: () -> Unit) {
+    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (hasReachedBottom(newState)) {
+                action()
+            }
+        }
+    })
+}
+
+fun RecyclerView.hasReachedBottom(newState: Int): Boolean =
+    !canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE
