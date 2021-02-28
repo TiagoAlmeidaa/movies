@@ -1,7 +1,6 @@
 package com.tiago.popular.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +37,6 @@ class PopularFragment : Fragment() {
         initializeBinding()
     }
 
-    private val movieAdapter = MovieAdapter()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,8 +49,7 @@ class PopularFragment : Fragment() {
         initializeUI()
         initializeEvents()
         initializeObservers()
-        if (!viewModel.hasMovies())
-            loadData()
+        initializeData()
     }
 
     private fun initializeBinding() = FragmentPopularBinding.inflate(layoutInflater).apply {
@@ -63,7 +59,7 @@ class PopularFragment : Fragment() {
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
     private fun initializeUI() = with(binding) {
-        popularList.adapter = movieAdapter
+        popularList.adapter = MovieAdapter()
     }
 
     private fun initializeEvents() = with(binding) {
@@ -71,7 +67,7 @@ class PopularFragment : Fragment() {
             viewModel.changeRecyclerViewMode()
         }
         popularList.onBottomReached {
-            loadData(true)
+            requestData(true)
         }
     }
 
@@ -80,25 +76,36 @@ class PopularFragment : Fragment() {
         mode.observe(viewLifecycleOwner, getModeObserver())
     }
 
-    private fun loadData(addPage: Boolean = false) {
+    private fun initializeData() = with(viewModel) {
+        if (!hasMovies())
+            requestData()
+        else
+            restore()
+    }
+
+    private fun requestData(addPage: Boolean = false) {
         binding.progressBar.visible()
-        Handler().postDelayed({ viewModel.getPopularMovies(addPage) }, 1000)
+        viewModel.getPopularMovies(addPage)
     }
 
     private fun getStateObserver() = Observer<PopularState> { state ->
         when (state) {
-            is PopularState.OnMoviesReceived -> {
-                binding.progressBar.gone()
-                movieAdapter.movies = state.movies.toMutableList()
+            is PopularState.OnMoviesReceived -> with(binding) {
+                progressBar.gone()
+                (popularList.adapter as MovieAdapter).addMovies(state.movies)
             }
             is PopularState.OnMoviesFailed -> {
-                Toast.makeText(requireContext(), state.exception.message ?: "unknown error", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    state.exception.message ?: "unknown error",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
 
     private fun getModeObserver() = Observer<RecyclerViewState> { state ->
-        when(state) {
+        when (state) {
             is RecyclerViewState.GridMode -> {
                 with(binding) {
                     imageViewMode.setImageResource(state.iconChangeTo)

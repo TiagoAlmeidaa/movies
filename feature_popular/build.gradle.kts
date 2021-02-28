@@ -45,6 +45,7 @@ dependencies {
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
+    implementation(AndroidX.recyclerView)
 
     implementation(Rx.java3)
     implementation(Rx.kotlin)

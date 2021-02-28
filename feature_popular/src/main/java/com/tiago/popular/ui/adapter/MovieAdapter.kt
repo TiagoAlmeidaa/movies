@@ -10,16 +10,14 @@ import com.tiago.popular.databinding.AdapterMovieBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    var movies: MutableList<Movie> = mutableListOf()
-        set(value) {
-            val oldValue = field.size
-            val newValue = value.size
-            field.addAll(value)
+    private val movies: MutableList<Movie> = mutableListOf()
 
-            notifyItemRangeInserted(oldValue, newValue)
-        }
+    init {
+        stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+
         val inflater = LayoutInflater.from(parent.context)
         val binding = AdapterMovieBinding.inflate(inflater, parent, false)
         return MovieViewHolder(binding)
@@ -30,6 +28,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int = movies.size
+
+    fun addMovies(newMovies: List<Movie>) {
+        val oldValue = movies.size
+        val newValue = newMovies.size
+
+        movies.addAll(newMovies)
+
+        notifyItemRangeInserted(oldValue, newValue)
+    }
 
     inner class MovieViewHolder(private val binding: AdapterMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {

@@ -6,12 +6,14 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.tiago.model.Movie
 import com.tiago.network.repository.MoviesRepository
+import com.tiago.popular.model.MoviesBackupState
 import com.tiago.popular.model.PopularState
 import com.tiago.popular.model.RecyclerViewState
+import com.tiago.popular.ui.adapter.MovieAdapter
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class PopularViewModel(
-    private val handler: SavedStateHandle,
+    handler: SavedStateHandle, // TODO ??
     private val repository: MoviesRepository
 ) : ViewModel() {
 
@@ -23,8 +25,8 @@ class PopularViewModel(
     private val _mode = MutableLiveData<RecyclerViewState>().apply { value = RecyclerViewState.GridMode() }
     val mode = _mode as LiveData<RecyclerViewState>
 
-    var currentPage = 1
-        private set
+    private var currentPage = 1
+    private var _backup: MoviesBackupState = MoviesBackupState()
 
     override fun onCleared() {
         super.onCleared()
@@ -45,6 +47,9 @@ class PopularViewModel(
     }
 
     fun handleReceivedMovies(movies: List<Movie>) {
+        _backup.page = currentPage
+        _backup.movies.addAll(movies)
+
         _state.postValue(PopularState.OnMoviesReceived(movies))
     }
 
@@ -60,6 +65,12 @@ class PopularViewModel(
         null -> _mode.postValue(RecyclerViewState.ListMode())
     }
 
-    fun hasMovies(): Boolean = _state.value is PopularState.OnMoviesReceived
+    fun hasMovies(): Boolean = _backup.movies.isNotEmpty()
+
+    fun restore() {
+        currentPage = _backup.page
+
+        _state.postValue(PopularState.OnMoviesReceived(_backup.movies))
+    }
 
 }

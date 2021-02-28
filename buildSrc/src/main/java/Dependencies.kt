@@ -6,6 +6,7 @@ object Versions {
     const val coreKtx = "1.3.2"
     const val appCompat = "1.2.0"
     const val navigation = "2.3.3"
+    const val recyclerView = "1.2.0-alpha04"
     const val jUnitExt = "1.1.2"
     const val espresso = "3.3.0"
     const val dagger = "2.29.1"
@@ -32,6 +33,7 @@ object AndroidX {
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val jUnitExt = "androidx.test.ext:junit:${Versions.jUnitExt}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
 }
