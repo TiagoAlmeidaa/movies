@@ -4,6 +4,8 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.tiago.network.datasource.MoviesDataSource
+import com.tiago.network.repository.MoviesRepository
+import com.tiago.network.repository.MoviesRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -13,7 +15,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+internal class NetworkModule {
 
     companion object {
         const val URL_KEY = "url.key"
@@ -33,12 +35,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMoviesDataSource(retrofit: Retrofit): MoviesDataSource =
-        retrofit
-            .create(MoviesDataSource::class.java)
-
-    @Provides
-    @Singleton
     fun provideRetrofit(@Named(URL_KEY) url: String, gson: Gson): Retrofit =
         Retrofit
             .Builder()
@@ -47,4 +43,14 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
+    @Provides
+    @Singleton
+    internal fun provideMoviesDataSource(retrofit: Retrofit): MoviesDataSource =
+        retrofit
+            .create(MoviesDataSource::class.java)
+
+    @Provides
+    @Singleton
+    internal fun provideMoviesRepository(impl: MoviesRepositoryImpl): MoviesRepository =
+        impl
 }

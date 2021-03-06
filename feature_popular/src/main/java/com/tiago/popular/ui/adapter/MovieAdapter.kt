@@ -8,7 +8,7 @@ import com.tiago.model.Movie
 import com.tiago.popular.R
 import com.tiago.popular.databinding.AdapterMovieBinding
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val movies: MutableList<Movie> = mutableListOf()
 

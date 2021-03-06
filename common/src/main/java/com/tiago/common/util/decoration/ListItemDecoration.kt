@@ -8,11 +8,11 @@ import com.tiago.common.extension.dp
 class ListItemDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
-        outRect: Rect,
+        rect: Rect,
         view: View,
         parent: RecyclerView,
         state: RecyclerView.State
-    ) = with(outRect) {
+    ) = with(rect) {
         if (isOnTop(view, parent)) {
             top = 10.dp
         }

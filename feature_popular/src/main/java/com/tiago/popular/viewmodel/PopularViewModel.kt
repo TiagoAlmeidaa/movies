@@ -2,18 +2,15 @@ package com.tiago.popular.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.tiago.model.Movie
+import com.tiago.model.MoviesBackup
 import com.tiago.network.repository.MoviesRepository
-import com.tiago.popular.model.MoviesBackupState
 import com.tiago.popular.model.PopularState
 import com.tiago.popular.model.RecyclerViewState
-import com.tiago.popular.ui.adapter.MovieAdapter
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-class PopularViewModel(
-    handler: SavedStateHandle, // TODO ??
+internal class PopularViewModel(
     private val repository: MoviesRepository
 ) : ViewModel() {
 
@@ -26,7 +23,7 @@ class PopularViewModel(
     val mode = _mode as LiveData<RecyclerViewState>
 
     private var currentPage = 1
-    private var _backup: MoviesBackupState = MoviesBackupState()
+    private var _backup: MoviesBackup = MoviesBackup()
 
     override fun onCleared() {
         super.onCleared()
