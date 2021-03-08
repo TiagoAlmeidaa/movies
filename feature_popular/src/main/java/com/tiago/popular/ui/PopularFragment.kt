@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tiago.common.extension.gone
@@ -65,11 +66,12 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         initializeData()
     }
 
-    override fun onMovieClicked(movie: Movie) {
+    override fun onMovieClicked(movie: Movie, view: View) {
         val bundle = Bundle().apply {
             putSerializable(BundleKeys.BUNDLE_DETAILS, movie)
         }
-        navigator.navigateTo(MoviesNavigation.Details(bundle))
+        val extras = FragmentNavigatorExtras(view to "poster")
+        navigator.navigateTo(MoviesNavigation.Details(bundle, extras))
     }
 
     private fun initializeBinding() = FragmentPopularBinding.inflate(layoutInflater).apply {
@@ -79,13 +81,13 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
     private fun initializeUI() = with(binding) {
-        popularList.layoutManager = GridLayoutManager(requireContext(), 2)
-        popularList.adapter = adapter
-        popularList.replaceItemDecoration(GridItemDecoration())
+        rvPopular.layoutManager = GridLayoutManager(requireContext(), 2)
+        rvPopular.adapter = adapter
+        rvPopular.replaceItemDecoration(GridItemDecoration())
     }
 
     private fun initializeEvents() = with(binding) {
-        popularList.onBottomReached {
+        rvPopular.onBottomReached {
             requestData(true)
         }
     }
@@ -102,14 +104,14 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
     }
 
     private fun requestData(addPage: Boolean = false) {
-        binding.progressBar.visible()
+        binding.pbLoading.visible()
         viewModel.getPopularMovies(addPage)
     }
 
     private fun getStateObserver() = Observer<PopularState> { state ->
         when (state) {
             is PopularState.OnMoviesReceived -> with(binding) {
-                progressBar.gone()
+                pbLoading.gone()
                 adapter.addMovies(state.movies)
             }
             is PopularState.OnMoviesFailed -> {

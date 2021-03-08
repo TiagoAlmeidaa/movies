@@ -8,7 +8,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popular_list"
+            android:id="@+id/rvPopular"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -16,7 +16,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <ProgressBar
-            android:id="@+id/progress_bar"
+            android:id="@+id/pbLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.tiago.model.Movie
 import com.tiago.common.util.BundleKeys
@@ -51,6 +52,7 @@ class DetailsFragment : Fragment() {
     private fun injectDependencies() = DetailsInjector.component.inject(this)
 
     private fun initializeUI() {
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         viewModel.getMovieFrom(arguments)
     }
 
