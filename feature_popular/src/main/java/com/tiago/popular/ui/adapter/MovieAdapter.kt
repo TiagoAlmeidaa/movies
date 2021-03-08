@@ -24,9 +24,10 @@ internal class MovieAdapter(
         return MovieAdapterViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MovieAdapterViewHolder, position: Int) {
-        holder.itemView.setOnClickListener { events.onMovieClicked() }
-        holder.bind(movies[position])
+    override fun onBindViewHolder(holder: MovieAdapterViewHolder, position: Int) = with(holder) {
+        val movie = movies[position]
+        bind(movie)
+        itemView.setOnClickListener { events.onMovieClicked(movie) }
     }
 
     override fun getItemCount(): Int = movies.size

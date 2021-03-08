@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.tiago.feature_details.ui.DetailFragment"
+        android:name="com.tiago.feature_details.ui.DetailsFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_details" />
 
 </navigation>

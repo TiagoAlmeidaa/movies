@@ -15,6 +15,8 @@ import com.tiago.common.extension.onBottomReached
 import com.tiago.common.extension.replaceItemDecoration
 import com.tiago.common.extension.visible
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
+import com.tiago.model.Movie
+import com.tiago.common.util.BundleKeys
 import com.tiago.navigation.MoviesNavigation
 import com.tiago.navigation.Navigator
 import com.tiago.popular.databinding.FragmentPopularBinding
@@ -40,6 +42,14 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         initializeBinding()
     }
 
+    private val navigator: Navigator by lazy {
+        activity as Navigator
+    }
+
+    private val adapter: MovieAdapter by lazy {
+        MovieAdapter(this@PopularFragment)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,8 +65,11 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         initializeData()
     }
 
-    override fun onMovieClicked() {
-        (activity as Navigator).navigateTo(MoviesNavigation.Details)
+    override fun onMovieClicked(movie: Movie) {
+        val bundle = Bundle().apply {
+            putSerializable(BundleKeys.BUNDLE_DETAILS, movie)
+        }
+        navigator.navigateTo(MoviesNavigation.Details(bundle))
     }
 
     private fun initializeBinding() = FragmentPopularBinding.inflate(layoutInflater).apply {
@@ -66,7 +79,7 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
     private fun initializeUI() = with(binding) {
-        popularList.adapter = MovieAdapter(this@PopularFragment)
+        popularList.adapter = adapter
     }
 
     private fun initializeEvents() = with(binding) {
@@ -99,7 +112,7 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         when (state) {
             is PopularState.OnMoviesReceived -> with(binding) {
                 progressBar.gone()
-                (popularList.adapter as MovieAdapter).addMovies(state.movies)
+                adapter.addMovies(state.movies)
             }
             is PopularState.OnMoviesFailed -> {
                 Toast.makeText(

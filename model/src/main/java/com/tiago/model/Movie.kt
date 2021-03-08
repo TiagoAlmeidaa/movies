@@ -1,5 +1,7 @@
 package com.tiago.model
 
+import java.io.Serializable
+
 data class Movie(
     val id: Long,
     val originalTitle: String,
@@ -9,4 +11,4 @@ data class Movie(
     val releaseDate: String,
     val voteAverage: Double,
     val voteCount: Long
-)
+) : Serializable
