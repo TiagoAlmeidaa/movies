@@ -7,7 +7,6 @@ import com.tiago.model.Movie
 import com.tiago.model.MoviesBackup
 import com.tiago.network.repository.MoviesRepository
 import com.tiago.popular.model.PopularState
-import com.tiago.popular.model.RecyclerViewState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 internal class PopularViewModel(
@@ -18,9 +17,6 @@ internal class PopularViewModel(
 
     private val _state = MutableLiveData<PopularState>()
     val state = _state as LiveData<PopularState>
-
-    private val _mode = MutableLiveData<RecyclerViewState>().apply { value = RecyclerViewState.GridMode() }
-    val mode = _mode as LiveData<RecyclerViewState>
 
     private var currentPage = 1
     private var _backup: MoviesBackup = MoviesBackup()
@@ -54,12 +50,6 @@ internal class PopularViewModel(
         if (addPage) currentPage--
 
         _state.postValue(PopularState.OnMoviesFailed(exception))
-    }
-
-    fun changeRecyclerViewMode() = when (_mode.value) {
-        is RecyclerViewState.GridMode -> _mode.postValue(RecyclerViewState.ListMode())
-        is RecyclerViewState.ListMode -> _mode.postValue(RecyclerViewState.GridMode())
-        null -> _mode.postValue(RecyclerViewState.ListMode())
     }
 
     fun hasMovies(): Boolean = _backup.movies.isNotEmpty()

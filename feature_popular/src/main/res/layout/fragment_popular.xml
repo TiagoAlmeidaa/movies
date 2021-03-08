@@ -7,30 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/white">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/image_view_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="@dimen/popular_fragment_toolbar_icon_margin"
-                    android:layout_marginEnd="@dimen/popular_fragment_toolbar_icon_margin"
-                    android:layout_marginBottom="@dimen/popular_fragment_toolbar_icon_margin"
-                    app:srcCompat="@drawable/icon_view_grid" />
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popular_list"
             android:layout_width="match_parent"

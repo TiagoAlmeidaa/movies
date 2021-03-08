@@ -17,12 +17,12 @@ import com.tiago.common.extension.visible
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
 import com.tiago.model.Movie
 import com.tiago.common.util.BundleKeys
+import com.tiago.common.util.decoration.GridItemDecoration
 import com.tiago.navigation.MoviesNavigation
 import com.tiago.navigation.Navigator
 import com.tiago.popular.databinding.FragmentPopularBinding
 import com.tiago.popular.di.PopularInjector
 import com.tiago.popular.model.PopularState
-import com.tiago.popular.model.RecyclerViewState
 import com.tiago.popular.ui.adapter.MovieAdapter
 import com.tiago.popular.ui.adapter.MovieAdapterEvents
 import com.tiago.popular.viewmodel.PopularViewModel
@@ -79,13 +79,12 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
     private fun initializeUI() = with(binding) {
+        popularList.layoutManager = GridLayoutManager(requireContext(), 2)
         popularList.adapter = adapter
+        popularList.replaceItemDecoration(GridItemDecoration())
     }
 
     private fun initializeEvents() = with(binding) {
-        imageViewMode.setOnClickListener {
-            viewModel.changeRecyclerViewMode()
-        }
         popularList.onBottomReached {
             requestData(true)
         }
@@ -93,7 +92,6 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
 
     private fun initializeObservers() = with(viewModel) {
         state.observe(viewLifecycleOwner, getStateObserver())
-        mode.observe(viewLifecycleOwner, getModeObserver())
     }
 
     private fun initializeData() = with(viewModel) {
@@ -120,25 +118,6 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
                     state.exception.message ?: "unknown error",
                     Toast.LENGTH_LONG
                 ).show()
-            }
-        }
-    }
-
-    private fun getModeObserver() = Observer<RecyclerViewState> { state ->
-        when (state) {
-            is RecyclerViewState.GridMode -> {
-                with(binding) {
-                    imageViewMode.setImageResource(state.iconChangeTo)
-                    popularList.layoutManager = GridLayoutManager(requireContext(), 2)
-                    popularList.replaceItemDecoration(state.decoration)
-                }
-            }
-            is RecyclerViewState.ListMode -> {
-                with(binding) {
-                    imageViewMode.setImageResource(state.iconChangeTo)
-                    popularList.layoutManager = LinearLayoutManager(requireContext())
-                    popularList.replaceItemDecoration(state.decoration)
-                }
             }
         }
     }
