@@ -8,7 +8,9 @@ import com.tiago.model.Movie
 import com.tiago.popular.R
 import com.tiago.popular.databinding.AdapterMovieBinding
 
-internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+internal class MovieAdapter(
+    private val events: MovieAdapterEvents
+) : RecyclerView.Adapter<MovieAdapterViewHolder>() {
 
     private val movies: MutableList<Movie> = mutableListOf()
 
@@ -16,14 +18,14 @@ internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>
         stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = AdapterMovieBinding.inflate(inflater, parent, false)
-        return MovieViewHolder(binding)
+        return MovieAdapterViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieAdapterViewHolder, position: Int) {
+        holder.itemView.setOnClickListener { events.onMovieClicked() }
         holder.bind(movies[position])
     }
 
@@ -36,16 +38,6 @@ internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>
         movies.addAll(newMovies)
 
         notifyItemRangeInserted(oldValue, newValue)
-    }
-
-    inner class MovieViewHolder(private val binding: AdapterMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
-            Glide
-                .with(binding.root)
-                .load("https://image.tmdb.org/t/p/w500${movie.posterPath}") // TODO move url out of here
-                .placeholder(R.drawable.icon_poster_place_holder)
-                .into(binding.imageViewPoster)
-        }
     }
 
 }

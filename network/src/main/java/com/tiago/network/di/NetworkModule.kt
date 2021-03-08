@@ -35,7 +35,7 @@ internal class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(@Named(URL_KEY) url: String, gson: Gson): Retrofit =
+    internal fun provideRetrofit(@Named(URL_KEY) url: String, gson: Gson): Retrofit =
         Retrofit
             .Builder()
             .baseUrl(url)

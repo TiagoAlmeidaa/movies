@@ -25,6 +25,7 @@ object Module {
     const val COMMON = ":common"
     const val NETWORK = ":network"
     const val FEATURE_POPULAR = ":feature_popular"
+    const val FEATURE_DETAILS = ":feature_details"
     const val NAVIGATION = ":navigation"
     const val MODEL = ":model"
 }

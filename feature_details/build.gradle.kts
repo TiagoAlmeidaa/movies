@@ -1,16 +1,14 @@
 plugins {
-    id(Plugin.ANDROID_APPLICATION)
+    id(Plugin.ANDROID_LIBRARY)
     id(Plugin.KOTLIN_ANDROID)
+    id(Plugin.KOTLIN_KAPT)
     id(Plugin.SAFE_ARGS)
 }
 
 android {
     compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
-    buildToolsVersion(AndroidConfig.BUILD_TOOLS_VERSION)
 
     defaultConfig {
-        applicationId(AndroidConfig.APPLICATION_ID)
-
         minSdkVersion(AndroidConfig.MIN_SDK_VERSION)
         targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
 
@@ -39,6 +37,25 @@ android {
 }
 
 dependencies {
-    implementation(project(Module.FEATURE_POPULAR))
-    implementation(project(Module.FEATURE_DETAILS))
+    api(project(Module.COMMON))
+
+    implementation(JetBrains.kotlinStdLib)
+
+    implementation(Android.material)
+
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.appCompat)
+    implementation(AndroidX.recyclerView)
+
+    implementation(Rx.java3)
+    implementation(Rx.kotlin)
+    implementation(Rx.android)
+
+    implementation(AndroidX.navigation)
+    implementation(AndroidX.navigationKtx)
+
+    implementation(Dagger.core)
+    kapt(Dagger.compiler)
+
+    implementation(BumpTech.glide)
 }

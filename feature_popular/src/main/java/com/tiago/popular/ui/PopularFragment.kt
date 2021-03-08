@@ -15,16 +15,19 @@ import com.tiago.common.extension.onBottomReached
 import com.tiago.common.extension.replaceItemDecoration
 import com.tiago.common.extension.visible
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
+import com.tiago.navigation.MoviesNavigation
+import com.tiago.navigation.Navigator
 import com.tiago.popular.databinding.FragmentPopularBinding
 import com.tiago.popular.di.PopularInjector
 import com.tiago.popular.model.PopularState
 import com.tiago.popular.model.RecyclerViewState
 import com.tiago.popular.ui.adapter.MovieAdapter
+import com.tiago.popular.ui.adapter.MovieAdapterEvents
 import com.tiago.popular.viewmodel.PopularViewModel
 import com.tiago.popular.viewmodel.PopularViewModelFactory
 import javax.inject.Inject
 
-class PopularFragment : Fragment() {
+class PopularFragment : Fragment(), MovieAdapterEvents {
 
     @Inject
     internal lateinit var factory: PopularViewModelFactory
@@ -52,6 +55,10 @@ class PopularFragment : Fragment() {
         initializeData()
     }
 
+    override fun onMovieClicked() {
+        (activity as Navigator).navigateTo(MoviesNavigation.Details)
+    }
+
     private fun initializeBinding() = FragmentPopularBinding.inflate(layoutInflater).apply {
         lifecycleOwner = this@PopularFragment
     }
@@ -59,7 +66,7 @@ class PopularFragment : Fragment() {
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
     private fun initializeUI() = with(binding) {
-        popularList.adapter = MovieAdapter()
+        popularList.adapter = MovieAdapter(this@PopularFragment)
     }
 
     private fun initializeEvents() = with(binding) {
