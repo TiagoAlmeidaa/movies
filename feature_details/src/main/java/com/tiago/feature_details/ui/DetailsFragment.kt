@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
-import com.tiago.model.Movie
-import com.tiago.common.util.BundleKeys
+import com.tiago.common.extension.setupSharedElementEnterTransition
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
 import com.tiago.feature_details.databinding.FragmentDetailsBinding
 import com.tiago.feature_details.di.DetailsInjector
 import com.tiago.feature_details.model.DetailsState
 import com.tiago.feature_details.viewmodel.DetailsViewModel
 import com.tiago.feature_details.viewmodel.DetailsViewModelFactory
+import com.tiago.model.Movie
+import com.tiago.network.util.Urls
 import javax.inject.Inject
 
 class DetailsFragment : Fragment() {
@@ -52,7 +52,7 @@ class DetailsFragment : Fragment() {
     private fun injectDependencies() = DetailsInjector.component.inject(this)
 
     private fun initializeUI() {
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+        setupSharedElementEnterTransition(android.R.transition.move)
         viewModel.getMovieFrom(arguments)
     }
 
@@ -61,18 +61,18 @@ class DetailsFragment : Fragment() {
     }
 
     private fun getStateObserver() = Observer<DetailsState> { state ->
-        when(state) {
+        when (state) {
             is DetailsState.OnMovieNotFound -> activity?.onBackPressed()
             is DetailsState.OnMovieReceived -> setMovieInformation(state.movie)
         }
     }
 
-    private fun setMovieInformation(movie: Movie) = with(binding){
+    private fun setMovieInformation(movie: Movie) = with(binding) {
         tvMovieTitle.text = movie.originalTitle
         tvMovieDescription.text = movie.overview
         Glide
             .with(root)
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}") // TODO move url out of here
+            .load("${Urls.posterUrl()}${movie.posterPath}")
             .into(ivMoviePoster)
     }
 }

@@ -6,39 +6,30 @@ import com.google.gson.GsonBuilder
 import com.tiago.network.datasource.MoviesDataSource
 import com.tiago.network.repository.MoviesRepository
 import com.tiago.network.repository.MoviesRepositoryImpl
+import com.tiago.network.util.Urls
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 internal class NetworkModule {
 
-    companion object {
-        const val URL_KEY = "url.key"
-    }
-
     @Provides
-    @Named(URL_KEY)
-    fun provideUrl(): String {
-        return "https://api.themoviedb.org/"
-    }
+    @Singleton
+    fun provideGson(): Gson =
+        GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create()
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create()
-
-    @Provides
-    @Singleton
-    internal fun provideRetrofit(@Named(URL_KEY) url: String, gson: Gson): Retrofit =
+    internal fun provideRetrofit(gson: Gson): Retrofit =
         Retrofit
             .Builder()
-            .baseUrl(url)
+            .baseUrl(Urls.apiUrl())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
@@ -53,4 +44,5 @@ internal class NetworkModule {
     @Singleton
     internal fun provideMoviesRepository(impl: MoviesRepositoryImpl): MoviesRepository =
         impl
+
 }

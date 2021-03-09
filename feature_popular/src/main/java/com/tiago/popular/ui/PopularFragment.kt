@@ -10,15 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tiago.common.extension.gone
 import com.tiago.common.extension.onBottomReached
 import com.tiago.common.extension.replaceItemDecoration
 import com.tiago.common.extension.visible
-import com.tiago.common.viewmodel.ViewModelCreatorFactory
-import com.tiago.model.Movie
 import com.tiago.common.util.BundleKeys
 import com.tiago.common.util.decoration.GridItemDecoration
+import com.tiago.common.viewmodel.ViewModelCreatorFactory
+import com.tiago.model.Movie
 import com.tiago.navigation.MoviesNavigation
 import com.tiago.navigation.Navigator
 import com.tiago.popular.databinding.FragmentPopularBinding

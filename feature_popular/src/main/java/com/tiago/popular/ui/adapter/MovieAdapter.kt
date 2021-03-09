@@ -3,9 +3,7 @@ package com.tiago.popular.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.tiago.model.Movie
-import com.tiago.popular.R
 import com.tiago.popular.databinding.AdapterMovieBinding
 
 internal class MovieAdapter(

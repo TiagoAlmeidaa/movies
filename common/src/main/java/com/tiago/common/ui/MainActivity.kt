@@ -2,11 +2,7 @@ package com.tiago.common.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavHost
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.tiago.common.R
 import com.tiago.common.databinding.ActivityMainBinding
 import com.tiago.navigation.MoviesNavigation
 import com.tiago.navigation.MoviesNavigator

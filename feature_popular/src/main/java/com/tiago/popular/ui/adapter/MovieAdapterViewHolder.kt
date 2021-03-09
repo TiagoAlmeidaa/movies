@@ -3,6 +3,7 @@ package com.tiago.popular.ui.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tiago.model.Movie
+import com.tiago.network.util.Urls
 import com.tiago.popular.databinding.AdapterMovieBinding
 
 class MovieAdapterViewHolder(
@@ -17,7 +18,7 @@ class MovieAdapterViewHolder(
 
         Glide
             .with(root)
-            .load("https://image.tmdb.org/t/p/w500${movie.posterPath}") // TODO move url out of here
+            .load("${Urls.posterUrl()}${movie.posterPath}")
             .into(ivPoster)
     }
 
