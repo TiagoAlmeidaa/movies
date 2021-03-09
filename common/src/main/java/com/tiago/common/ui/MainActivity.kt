@@ -2,6 +2,7 @@ package com.tiago.common.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavHost
 import androidx.navigation.fragment.NavHostFragment
 import com.tiago.common.databinding.ActivityMainBinding
 import com.tiago.navigation.MoviesNavigation
@@ -18,6 +19,10 @@ class MainActivity : AppCompatActivity(), Navigator {
         initializeNavigator()
     }
 
+    val navHostFragment: NavHostFragment by lazy {
+        supportFragmentManager.findFragmentById(binding.fragmentContainer.id) as NavHostFragment
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -32,8 +37,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     private fun initializeNavigator() = MoviesNavigator().apply {
-        val navHost = supportFragmentManager.findFragmentById(binding.fragmentContainer.id) as NavHostFragment
-        navController = navHost.navController
+        navController = navHostFragment.navController
     }
 
 }
