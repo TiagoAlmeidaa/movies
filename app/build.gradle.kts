@@ -46,4 +46,6 @@ android {
 dependencies {
     implementation(project(Module.FEATURE_POPULAR))
     implementation(project(Module.FEATURE_DETAILS))
+
+    debugImplementation(Square.leakCanary)
 }

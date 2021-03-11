@@ -1,4 +1,4 @@
-object Versions {
+internal object Versions {
     const val gradle = "4.1.2"
     const val material = "1.3.0"
     const val kotlin = "1.4.30"
@@ -11,10 +11,12 @@ object Versions {
     const val espresso = "3.3.0"
     const val dagger = "2.29.1"
     const val retrofit = "2.9.0"
+    const val leakCanary = "2.6"
     const val rxJava3 = "3.0.0"
     const val glide = "4.12.0"
     const val jUnit = "4.13.2"
     const val dependenciesChecker = "0.36.0"
+
 }
 
 object Android {
@@ -47,6 +49,7 @@ object Square {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     const val retrofitRxJava3Adapter = "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
 }
 
 object Rx {
