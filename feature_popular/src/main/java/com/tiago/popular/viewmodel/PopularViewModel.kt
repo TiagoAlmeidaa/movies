@@ -1,12 +1,13 @@
 package com.tiago.popular.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tiago.common.util.SingleLiveEvent
 import com.tiago.model.Movie
 import com.tiago.model.MoviesBackup
 import com.tiago.network.repository.MoviesRepository
 import com.tiago.popular.model.PopularState
+import com.tiago.popular.ui.adapter.MovieAdapter
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 internal class PopularViewModel(
@@ -15,7 +16,7 @@ internal class PopularViewModel(
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    private val _state = MutableLiveData<PopularState>()
+    private val _state = SingleLiveEvent<PopularState>()
     val state = _state as LiveData<PopularState>
 
     private var currentPage = 1
@@ -54,9 +55,9 @@ internal class PopularViewModel(
 
     fun hasMovies(): Boolean = _backup.movies.isNotEmpty()
 
-    fun restore() {
+    fun restore(adapter: MovieAdapter) {
         currentPage = _backup.page
-
+        adapter.clear()
         _state.postValue(PopularState.OnMoviesReceived(_backup.movies))
     }
 

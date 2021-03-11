@@ -20,6 +20,7 @@ import com.tiago.common.viewmodel.ViewModelCreatorFactory
 import com.tiago.model.Movie
 import com.tiago.navigation.MoviesNavigation
 import com.tiago.navigation.Navigator
+import com.tiago.popular.R
 import com.tiago.popular.databinding.FragmentPopularBinding
 import com.tiago.popular.di.PopularInjector
 import com.tiago.popular.model.PopularState
@@ -69,7 +70,7 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         val bundle = Bundle().apply {
             putSerializable(BundleKeys.BUNDLE_DETAILS, movie)
         }
-        val extras = FragmentNavigatorExtras(view to "poster")
+        val extras = FragmentNavigatorExtras(view to getString(R.string.poster))
         navigator.navigateTo(MoviesNavigation.Details(bundle, extras))
     }
 
@@ -99,7 +100,7 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         if (!hasMovies())
             requestData()
         else
-            restore()
+            restore(adapter)
     }
 
     private fun requestData(addPage: Boolean = false) {

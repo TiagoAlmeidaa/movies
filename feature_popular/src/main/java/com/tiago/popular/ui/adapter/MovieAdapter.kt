@@ -37,4 +37,5 @@ internal class MovieAdapter(
         notifyItemRangeInserted(oldValue, newValue)
     }
 
+    fun clear() = movies.clear()
 }
