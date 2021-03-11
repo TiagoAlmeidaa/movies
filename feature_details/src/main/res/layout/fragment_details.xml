@@ -28,7 +28,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivMoviePoster"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/details_image_view_width"
                 android:layout_height="@dimen/details_image_view_height"
                 android:scaleType="fitXY"
                 android:transitionName="@string/poster"
