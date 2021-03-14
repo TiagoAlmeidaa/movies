@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
-import com.tiago.common.extension.setupSharedElementEnterTransition
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
 import com.tiago.feature_details.R
 import com.tiago.feature_details.databinding.FragmentDetailsBinding
@@ -40,7 +39,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun injectDependencies() = DetailsInjector.component.inject(this)
 
     private fun initializeUI() {
-        setupSharedElementEnterTransition(android.R.transition.move)
         viewModel.getMovieFrom(arguments)
     }
 
