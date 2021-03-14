@@ -7,7 +7,6 @@ import com.tiago.model.Movie
 import com.tiago.model.MoviesBackup
 import com.tiago.network.repository.MoviesRepository
 import com.tiago.popular.model.PopularState
-import com.tiago.popular.ui.adapter.MovieAdapter
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 internal class PopularViewModel(
