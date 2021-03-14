@@ -49,4 +49,5 @@ dependencies {
     kapt(Dagger.compiler)
 
     testImplementation(Testing.jUnit)
+    testImplementation(Testing.mockK)
 }

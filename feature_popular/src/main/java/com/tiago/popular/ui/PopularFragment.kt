@@ -102,14 +102,23 @@ class PopularFragment : Fragment(R.layout.fragment_popular), MovieAdapterEvents 
 
     private fun getStateObserver() = Observer<PopularState> { state ->
         when (state) {
-            is PopularState.OnMoviesReceived -> with(binding) {
+            is PopularState.FetchSucceeded -> with(binding) {
                 pbLoading.gone()
                 adapter?.addMovies(state.movies)
             }
-            is PopularState.OnMoviesFailed -> {
+            is PopularState.FetchFailed -> with(binding) {
+                pbLoading.gone()
                 Toast.makeText(
                     requireContext(),
-                    state.exception.message ?: "unknown error",
+                    "error",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            PopularState.InvalidResponse -> with(binding) {
+                pbLoading.gone()
+                Toast.makeText(
+                    requireContext(),
+                    "error",
                     Toast.LENGTH_LONG
                 ).show()
             }

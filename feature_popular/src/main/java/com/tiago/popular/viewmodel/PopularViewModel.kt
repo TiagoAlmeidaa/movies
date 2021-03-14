@@ -3,7 +3,8 @@ package com.tiago.popular.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tiago.common.util.SingleLiveEvent
-import com.tiago.model.Movie
+import com.tiago.model.ApiErrorResponse
+import com.tiago.model.ApiMoviesResponse
 import com.tiago.model.MoviesBackup
 import com.tiago.network.repository.MoviesRepository
 import com.tiago.popular.model.PopularState
@@ -27,36 +28,38 @@ internal class PopularViewModel(
     }
 
     fun getPopularMovies(addPage: Boolean = false) {
-        if (addPage) currentPage++
+        val page = if (addPage)
+            currentPage + 1
+        else
+            currentPage
 
-        val disposable = repository
-            .getPopularMovies(currentPage)
-            .subscribe(
-                { handleReceivedMovies(it) },
-                { handleException(addPage, it) }
-            )
-
-        disposables.add(disposable)
+        disposables.add(
+            repository
+                .getPopularMovies(page)
+                .subscribe { response ->
+                    when(response) {
+                        is ApiMoviesResponse -> handleReceivedMovies(response)
+                        is ApiErrorResponse -> _state.postValue(PopularState.FetchFailed(response))
+                        else -> _state.postValue(PopularState.InvalidResponse)
+                    }
+                }
+        )
     }
 
-    fun handleReceivedMovies(movies: List<Movie>) {
+    fun handleReceivedMovies(response: ApiMoviesResponse) = with(response) {
+        currentPage = page
+
         _backup.page = currentPage
-        _backup.movies.addAll(movies)
+        _backup.movies.addAll(results)
 
-        _state.postValue(PopularState.OnMoviesReceived(movies))
-    }
-
-    fun handleException(addPage: Boolean, exception: Throwable) {
-        if (addPage) currentPage--
-
-        _state.postValue(PopularState.OnMoviesFailed(exception))
+        _state.postValue(PopularState.FetchSucceeded(results))
     }
 
     fun hasMovies(): Boolean = _backup.movies.isNotEmpty()
 
     fun restore() {
         currentPage = _backup.page
-        _state.postValue(PopularState.OnMoviesReceived(_backup.movies))
+        _state.postValue(PopularState.FetchSucceeded(_backup.movies))
     }
 
 }

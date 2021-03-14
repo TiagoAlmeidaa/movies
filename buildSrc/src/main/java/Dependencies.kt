@@ -14,9 +14,10 @@ internal object Versions {
     const val leakCanary = "2.6"
     const val rxJava3 = "3.0.0"
     const val glide = "4.12.0"
-    const val jUnit = "4.13.2"
     const val dependenciesChecker = "0.36.0"
     const val viewBindingDelegate = "1.4.4"
+    const val jUnit = "4.13.2"
+    const val mockK = "1.10.6"
 }
 
 object Android {
@@ -62,11 +63,12 @@ object BumpTech {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
 }
 
-object Testing {
-    const val jUnit = "junit:junit:${Versions.jUnit}"
-}
-
 object Util {
     const val dependenciesChecker = "com.github.ben-manes:gradle-versions-plugin:${Versions.dependenciesChecker}"
     const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.viewBindingDelegate}"
+}
+
+object Testing {
+    const val jUnit = "junit:junit:${Versions.jUnit}"
+    const val mockK = "io.mockk:mockk:${Versions.mockK}"
 }
