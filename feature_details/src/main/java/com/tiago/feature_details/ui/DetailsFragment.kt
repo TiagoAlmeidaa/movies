@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.tiago.common.extension.setupSharedElementEnterTransition
 import com.tiago.common.viewmodel.ViewModelCreatorFactory
+import com.tiago.feature_details.R
 import com.tiago.feature_details.databinding.FragmentDetailsBinding
 import com.tiago.feature_details.di.DetailsInjector
 import com.tiago.feature_details.model.DetailsState
@@ -19,7 +21,7 @@ import com.tiago.model.Movie
 import com.tiago.network.util.Urls
 import javax.inject.Inject
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     @Inject
     internal lateinit var factory: DetailsViewModelFactory
@@ -28,25 +30,13 @@ class DetailsFragment : Fragment() {
         ViewModelCreatorFactory(factory, this)
     }
 
-    private val binding: FragmentDetailsBinding by lazy {
-        initializeBinding()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = binding.root
+    private val binding by viewBinding(FragmentDetailsBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         injectDependencies()
         initializeUI()
         initializeObservers()
-    }
-
-    private fun initializeBinding() = FragmentDetailsBinding.inflate(layoutInflater).apply {
-        lifecycleOwner = this@DetailsFragment
     }
 
     private fun injectDependencies() = DetailsInjector.component.inject(this)

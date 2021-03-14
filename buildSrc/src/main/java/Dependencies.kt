@@ -16,7 +16,7 @@ internal object Versions {
     const val glide = "4.12.0"
     const val jUnit = "4.13.2"
     const val dependenciesChecker = "0.36.0"
-
+    const val viewBindingDelegate = "1.4.4"
 }
 
 object Android {
@@ -68,4 +68,5 @@ object Testing {
 
 object Util {
     const val dependenciesChecker = "com.github.ben-manes:gradle-versions-plugin:${Versions.dependenciesChecker}"
+    const val viewBindingDelegate = "com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.viewBindingDelegate}"
 }

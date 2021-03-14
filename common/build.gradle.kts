@@ -39,6 +39,8 @@ dependencies {
     api(project(Module.NETWORK))
     api(project(Module.NAVIGATION))
 
+    api(Util.viewBindingDelegate)
+
     implementation(JetBrains.kotlinStdLib)
 
     implementation(AndroidX.coreKtx)

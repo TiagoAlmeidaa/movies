@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.tiago.common.extension.gone
 import com.tiago.common.extension.onBottomReached
 import com.tiago.common.extension.replaceItemDecoration
@@ -21,6 +22,7 @@ import com.tiago.model.Movie
 import com.tiago.navigation.MoviesNavigation
 import com.tiago.navigation.Navigator
 import com.tiago.popular.R
+import com.tiago.popular.databinding.AdapterMovieBinding
 import com.tiago.popular.databinding.FragmentPopularBinding
 import com.tiago.popular.di.PopularInjector
 import com.tiago.popular.model.PopularState
@@ -30,7 +32,7 @@ import com.tiago.popular.viewmodel.PopularViewModel
 import com.tiago.popular.viewmodel.PopularViewModelFactory
 import javax.inject.Inject
 
-class PopularFragment : Fragment(), MovieAdapterEvents {
+class PopularFragment : Fragment(R.layout.fragment_popular), MovieAdapterEvents {
 
     @Inject
     internal lateinit var factory: PopularViewModelFactory
@@ -39,23 +41,13 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         ViewModelCreatorFactory(factory, this)
     }
 
-    private val binding: FragmentPopularBinding by lazy {
-        initializeBinding()
-    }
+    private val binding by viewBinding(FragmentPopularBinding::bind)
+
+    private var adapter: MovieAdapter? = null
 
     private val navigator: Navigator by lazy {
         activity as Navigator
     }
-
-    private val adapter: MovieAdapter by lazy {
-        MovieAdapter(this@PopularFragment)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,13 +66,16 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         navigator.navigateTo(MoviesNavigation.Details(bundle, extras))
     }
 
-    private fun initializeBinding() = FragmentPopularBinding.inflate(layoutInflater).apply {
-        lifecycleOwner = this@PopularFragment
+    override fun onDestroy() {
+        adapter = null
+        super.onDestroy()
     }
 
     private fun injectDependencies() = PopularInjector.component.inject(this)
 
     private fun initializeUI() = with(binding) {
+        adapter = MovieAdapter(this@PopularFragment)
+
         rvPopular.layoutManager = GridLayoutManager(requireContext(), 2)
         rvPopular.adapter = adapter
         rvPopular.replaceItemDecoration(GridItemDecoration())
@@ -100,7 +95,7 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         if (!hasMovies())
             requestData()
         else
-            restore(adapter)
+            restore()
     }
 
     private fun requestData(addPage: Boolean = false) {
@@ -112,7 +107,7 @@ class PopularFragment : Fragment(), MovieAdapterEvents {
         when (state) {
             is PopularState.OnMoviesReceived -> with(binding) {
                 pbLoading.gone()
-                adapter.addMovies(state.movies)
+                adapter?.addMovies(state.movies)
             }
             is PopularState.OnMoviesFailed -> {
                 Toast.makeText(

@@ -55,9 +55,8 @@ internal class PopularViewModel(
 
     fun hasMovies(): Boolean = _backup.movies.isNotEmpty()
 
-    fun restore(adapter: MovieAdapter) {
+    fun restore() {
         currentPage = _backup.page
-        adapter.clear()
         _state.postValue(PopularState.OnMoviesReceived(_backup.movies))
     }
 

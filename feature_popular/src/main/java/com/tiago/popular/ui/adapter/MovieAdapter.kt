@@ -14,6 +14,7 @@ internal class MovieAdapter(
 
     init {
         stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        movies.clear()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapterViewHolder {
@@ -36,6 +37,4 @@ internal class MovieAdapter(
 
         notifyItemRangeInserted(oldValue, newValue)
     }
-
-    fun clear() = movies.clear()
 }
