@@ -26,16 +26,20 @@ android {
             proguardFiles(ProGuard.TXT, ProGuard.PRO)
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
     buildFeatures {
         dataBinding = true
     }
+
     externalNativeBuild {
         cmake {
             path("CMakeLists.txt")
