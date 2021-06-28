@@ -11,7 +11,7 @@ internal object Versions {
     const val espresso = "3.3.0"
     const val dagger = "2.29.1"
     const val retrofit = "2.9.0"
-    const val leakCanary = "2.6"
+    const val leakCanary = "2.7"
     const val rxJava3 = "3.0.0"
     const val glide = "4.12.0"
     const val dependenciesChecker = "0.36.0"
