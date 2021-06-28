@@ -63,9 +63,9 @@ class PopularFragment : Fragment(R.layout.fragment_popular), MovieAdapterEvents 
         navigator.navigateTo(MoviesNavigation.Details(bundle, extras))
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         adapter = null
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     private fun injectDependencies() = PopularInjector.component.inject(this)
