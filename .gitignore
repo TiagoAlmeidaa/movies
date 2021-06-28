@@ -12,6 +12,9 @@ bin/
 gen/
 out/
 
+# buildSrc generated files
+buildSrc/build/
+
 # Gradle files
 .gradle/
 build/
@@ -57,3 +60,7 @@ lint/tmp/
 
 # C file where I store API keys
 app/src/main/cpp/native-lib.cpp
+
+# jacoco
+jacoco/
+jacoco.exec

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="popular_adapter_movie_card_corner_radius">10dp</dimen>
+    <dimen name="popular_adapter_movie_image_height">300dp</dimen>
+    <dimen name="popular_adapter_movie_place_holder_size">48dp</dimen>
+    <dimen name="popular_fragment_toolbar_icon_margin">15dp</dimen>
+    <dimen name="popular_fragment_list_padding_bottom">50dp</dimen>
+
+</resources>
