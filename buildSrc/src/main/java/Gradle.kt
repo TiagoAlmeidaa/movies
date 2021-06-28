@@ -6,6 +6,7 @@ object Plugin {
     const val KOTLIN_KAPT = "kotlin-kapt"
     const val JAVA_LIBRARY = "java-library"
     const val SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
+    const val JACOCO = "jacoco"
 }
 
 object AndroidConfig {

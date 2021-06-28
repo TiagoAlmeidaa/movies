@@ -3,6 +3,11 @@ plugins {
     id(Plugin.KOTLIN_ANDROID)
     id(Plugin.KOTLIN_KAPT)
     id(Plugin.SAFE_ARGS)
+    id(Plugin.JACOCO)
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
 
 android {
@@ -61,4 +66,9 @@ dependencies {
     kapt(Dagger.compiler)
 
     implementation(BumpTech.glide)
+
+    testImplementation(Testing.jUnit)
+    testImplementation(Testing.mockK)
 }
+
+apply(from = "${project.rootDir}/jacoco-module.gradle.kts")

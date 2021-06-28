@@ -2,6 +2,11 @@ plugins {
     id(Plugin.ANDROID_LIBRARY)
     id(Plugin.KOTLIN_ANDROID)
     id(Plugin.KOTLIN_KAPT)
+    id(Plugin.JACOCO)
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
 
 android {
@@ -53,3 +58,5 @@ dependencies {
     testImplementation(Testing.jUnit)
     testImplementation(Testing.mockK)
 }
+
+apply(from = "${project.rootDir}/jacoco-module.gradle.kts")

@@ -1,30 +1,26 @@
 //import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath(Android.gradle)
         classpath(JetBrains.kotlinGradlePlugin)
         classpath(AndroidX.safeArgs)
-        classpath(Util.dependenciesChecker)
+        //classpath(Util.dependenciesChecker)
+        //classpath("org.jacoco:org.jacoco.core:0.8.7")
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
-subprojects {
-    afterEvaluate {
-        apply("../jacoco.gradle.kts")
-    }
-}
+//apply(from = "${project.rootDir}/jacoco-project.gradle.kts")
 
 //tasks {
 //    "dependencyUpdates"(DependencyUpdatesTask::class) {

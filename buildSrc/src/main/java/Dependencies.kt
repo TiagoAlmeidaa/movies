@@ -1,5 +1,5 @@
 internal object Versions {
-    const val gradle = "4.1.2"
+    const val gradle = "4.2.1"
     const val material = "1.3.0"
     const val kotlin = "1.4.30"
     const val safeArgs = "2.3.2"
